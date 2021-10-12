@@ -3,7 +3,7 @@ import { createConnection } from "typeorm";
 import App from "./app";
 import { logger } from "./common/utils";
 
-const PORT: any = process.env.PORT || 7000;
+const PORT: any = process.env.PORT || 3000;
 
 const app = new App(PORT);
 
