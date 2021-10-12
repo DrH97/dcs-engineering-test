@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { ValidationError } from "express-json-validator-middleware";
+import { logger } from "./utils";
 
 export function validationErrors(
   err: ValidationError,
@@ -23,7 +24,7 @@ export function sendErrResponse(
   detail: unknown
 ): void {
   if (process.env.LOG_ERRORS) {
-    console.error(`Error ${code}: ${JSON.stringify(detail, undefined, 2)}`);
+    logger(`Error ${code}: ${JSON.stringify(detail, undefined, 2)}`);
   }
   const body: ErrResponseBody = { errors: detail };
   res.status(code).send(body);

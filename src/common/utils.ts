@@ -88,8 +88,12 @@ const clearExpiredLots = async () => {
 
     console.log(`Cleared ${re.affected} expired lots!`);
   } catch (e) {
-    console.error(e);
+    logger(e);
   }
+};
+
+const logger = (message: string | object | unknown) => {
+  console.error(new Date().toISOString() + "\t" + message);
 };
 
 export {
@@ -99,5 +103,6 @@ export {
   calculateLotsQuantitySum,
   getFirstLot,
   sortLotsByExpiry,
-  sellLots
+  sellLots,
+  logger
 };
