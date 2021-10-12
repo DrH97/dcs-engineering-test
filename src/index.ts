@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
+import app from "./entity/app";
 
 createConnection().then(async connection => {
 
@@ -17,5 +18,9 @@ createConnection().then(async connection => {
     console.log("Loaded users: ", users);
 
     console.log("Here you can setup and run express/koa/any other framework.");
+
+    /** Server */
+    const PORT: any = process.env.PORT || 7000;
+    app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
 
 }).catch(error => console.log(error));
