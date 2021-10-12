@@ -1,4 +1,18 @@
 import {Response} from 'express';
+import {ValidationError} from 'express-json-validator-middleware';
+import {NextFunction} from "express";
+
+export function validationErrors(
+    err: ValidationError,
+    req: Request,
+    res: Response,
+    next: NextFunction
+): void {
+    if (err?.name === 'JsonSchemaValidationError') {
+        sendErrResponse(res, 422, err.validationErrors);
+    }
+    next();
+}
 
 
 interface ErrResponseBody {

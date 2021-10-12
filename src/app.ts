@@ -4,10 +4,11 @@ import helmet from "helmet";
 
 // import routes;
 import routes from './routes/lot.route';
-
+import {validationErrors} from "./common/errors";
 
 // Initialize our express app
 const app: Express = express();
+
 
 /** Parse the request */
 app.use(express.urlencoded({ extended: false }));
@@ -26,5 +27,8 @@ app.use(helmet());
 app.use('/api/v1', routes);
 
 
-// Export app to run after db connection and for easier testing
+/** Error handling */
+// @ts-ignore
+app.use(validationErrors);
+
 export default app;
