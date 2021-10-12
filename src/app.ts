@@ -2,6 +2,9 @@ import express, { Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
 
+// import routes;
+import routes from './routes/lot.route';
+
 
 // Initialize our express app
 const app: Express = express();
@@ -20,9 +23,8 @@ app.use(helmet());
 
 
 /** Routes */
-app.use('/', (req, res, next) => {
-    res.status(200).send("it works");
-});
+app.use('/api/v1', routes);
+
 
 // Export app to run after db connection and for easier testing
 export default app;
