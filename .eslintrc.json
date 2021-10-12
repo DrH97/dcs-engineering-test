@@ -19,6 +19,8 @@
     "rules": {
         "quotes": ["error", "double"],
         "no-console": 1,
-        "prettier/prettier": 2 // Means error
+        "prettier/prettier": 2,
+        "prefer-const": 2,
+        "prefer-spread": 2
     }
 }

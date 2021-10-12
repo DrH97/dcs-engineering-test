@@ -1,4 +1,4 @@
-import { Lot } from "../entity/Lot";
+import Lot from "../entity/Lot";
 import { getConnection, In } from "typeorm";
 
 const findLotsByName = async (item: string) => {

@@ -1,15 +1,24 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import app from "./app";
+import App from "./app";
+
+const PORT: any = process.env.PORT || 7000;
+
+const app = new App(
+    PORT
+);
 
 createConnection()
-  .then(async (connection) => {
+  .then(() => {
+
     /** Server */
-    const PORT: any = process.env.PORT || 7000;
-    app.listen(PORT, () =>
-      console.log(`The server is running on port ${PORT}`)
-    );
+    app.listen();
+
   })
-  .catch(() =>
-    console.error("Could not connect to database! Check configs or connection.")
-  );
+  // .catch((e) =>
+  //   console.error(
+  //     "Could not connect to database! Check configs or connection.\n\n" + e
+  //   )
+  // );
+
+export default {}

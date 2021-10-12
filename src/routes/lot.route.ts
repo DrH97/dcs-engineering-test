@@ -20,4 +20,4 @@ router.post(
   controller.sellItem
 );
 
-export = router;
+export default router;

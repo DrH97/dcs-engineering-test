@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 @Entity()
-export class Lot extends BaseEntity {
+class Lot extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -23,3 +23,5 @@ export class Lot extends BaseEntity {
       .getMany();
   }
 }
+
+export default Lot;

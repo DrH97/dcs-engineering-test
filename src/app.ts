@@ -6,26 +6,43 @@ import helmet from "helmet";
 import routes from "./routes/lot.route";
 import { validationErrors } from "./common/errors";
 
-// Initialize our express app
-const app: Express = express();
 
-/** Parse the request */
-app.use(express.urlencoded({ extended: false }));
+class App {
+    // Initialize our express app
+    private app: Express;
+    public port: number;
 
-/** Takes care of JSON data */
-app.use(express.json());
+    constructor(port: number) {
+        this.port = port;
+        this.app = express();
 
-/** Handle Cross Origin Requests */
-app.use(cors());
+        /** Parse the request */
+        this.app.use(express.urlencoded({extended: false}));
 
-/** Handle for common headers and vulnerabilities */
-app.use(helmet());
+        /** Takes care of JSON data */
+        this.app.use(express.json());
 
-/** Routes */
-app.use("/api/v1", routes);
+        /** Handle Cross Origin Requests */
+        this.app.use(cors());
 
-/** Error handling */
-// @ts-ignore
-app.use(validationErrors);
+        /** Handle for common headers and vulnerabilities */
+        this.app.use(helmet());
 
-export default app;
+        /** Routes */
+        this.app.use("/api/v1", routes);
+
+        /** Error handling */
+        // @ts-ignore
+        this.app.use(validationErrors);
+
+    }
+
+    public listen() {
+        this.app.listen(this.port, () => {
+            console.log(`App listening on the port ${this.port}`);
+        });
+    }
+
+}
+
+export default App;

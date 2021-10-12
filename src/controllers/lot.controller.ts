@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Lot } from "../entity/Lot";
+import Lot  from "../entity/Lot";
 import { BaseLot } from "../interfaces/lot.interface";
 import { sendErrResponse } from "../common/errors";
 import {
