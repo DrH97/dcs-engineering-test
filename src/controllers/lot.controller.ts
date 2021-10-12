@@ -22,7 +22,7 @@ const getQuantity = async (req: Request, res: Response) => {
     const quantityObj = calculateLotsQuantitySum(lotsByItemName);
 
     // Send back data
-    res.status(200).send(quantityObj);
+    res.status(200).json(quantityObj);
   } catch (e) {
     sendErrResponse(res, 500, (e as Error).message);
   }
@@ -56,7 +56,7 @@ const addLot = async (req: Request, res: Response) => {
     await lot.save();
 
     // Send back data
-    res.status(201).send(lot);
+    res.status(201).json(lot);
   } catch (e) {
     sendErrResponse(res, 500, (e as Error).message);
   }
@@ -94,7 +94,7 @@ const sellItem = async (req: Request, res: Response) => {
 
     // Get response object
     // Send back data
-    res.status(201).send(await findLotsByName(item));
+    res.status(201).json(await findLotsByName(item));
   } catch (e) {
     sendErrResponse(res, 500, (e as Error).message);
   }

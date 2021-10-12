@@ -7,3 +7,5 @@ temp/
 
 .env
 dist/
+
+error.log
