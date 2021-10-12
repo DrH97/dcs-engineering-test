@@ -1,7 +1,7 @@
 export interface BaseLot {
-    quantity: number
+  quantity: number;
 }
 
 export interface CommonLot extends BaseLot {
-    expiry: Date
+  expiry: Date;
 }
