@@ -9,10 +9,11 @@ import {
 import supertest from "supertest";
 import App from "../src/app";
 
-const app = new App(3000).app;
+const server = new App(3002);
+const app = server.app;
 
-beforeAll(() => {
-  return createConnection({
+beforeAll(async () => {
+  await createConnection({
     type: "sqlite",
     database: ":memory:",
     dropSchema: true,
@@ -105,12 +106,7 @@ describe("DB Tests", () => {
 
 describe("Controller Tests", () => {
   it("get quantity of only valid lots", async () => {
-    const lots: Lot[] = await getRepository(Lot)
-      .createQueryBuilder("lot")
-      .where("name = :name", { name: "foo" })
-      .andWhere("strftime('%s', expiry) > strftime('%s','now')")
-      .andWhere("quantity > 0")
-      .getMany();
+    const lots: Lot[] = await Lot.findNonExpired("foo");
 
     const x = [...lots];
 

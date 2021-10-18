@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  getConnection
+} from "typeorm";
 
 @Entity()
 class Lot extends BaseEntity {
@@ -11,16 +17,26 @@ class Lot extends BaseEntity {
   @Column("integer")
   quantity!: number;
 
-  @Column({ type: "datetime" })
+  @Column({
+    type: "datetime",
+    precision: 3
+  })
   expiry!: Date;
 
   // TODO: We should sort by expiry in db? faster? more efficient? necessary?
   static findNonExpired(name: string) {
-    return this.createQueryBuilder("lot")
-      .where("name = :name", { name })
-      .andWhere("expiry > :date", { date: new Date() })
-      .andWhere("quantity > 0")
-      .getMany();
+    const queryBuilder = this.createQueryBuilder("lot").where("name = :name", {
+      name
+    });
+
+    // Modified for sqlite datetime check during tests
+    if (getConnection().options.type === "sqlite") {
+      queryBuilder.andWhere("strftime('%s', expiry) > strftime('%s','now')");
+    } else {
+      queryBuilder.andWhere("expiry > :date", { date: new Date() });
+    }
+
+    return queryBuilder.andWhere("quantity > 0").getMany();
   }
 }
 

@@ -4,8 +4,10 @@ import helmet from "helmet";
 
 // import routes;
 import routes from "./routes/lot.route";
+
 import { validationErrors } from "./common/errors";
 import morgan from "morgan";
+import { logger } from "./common/utils";
 
 class App {
   // Initialize our express app
@@ -40,9 +42,16 @@ class App {
   }
 
   public listen() {
-    this.app.listen(this.port, () => {
-      console.log(`App listening on the port ${this.port}`);
-    });
+    this.app
+      .listen(this.port, () => {
+        console.log(`App listening on the port ${this.port}`);
+      })
+      .on("error", (err) => {
+        // This was added because of testing, but then it is not necessary because each
+        // test runs on a different port
+        console.log(`App already listening on the port ${this.port}`);
+        logger(err);
+      });
   }
 }
 
