@@ -3,6 +3,9 @@ import { createConnection } from "typeorm";
 import App from "./app";
 import { logger } from "./common/utils";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const PORT: any = process.env.PORT || 3000;
 
 const app = new App(PORT);
@@ -10,7 +13,8 @@ const app = new App(PORT);
 
 import cluster from "cluster"
 import { cpus } from 'os';
-const totalCores = cpus().length;
+const totalAvailableCores = cpus().length;
+const concurrencyLevel = process.env.WEB_CONCURRENCY_CORES || totalAvailableCores;
 
 const start = () => {
 
@@ -28,11 +32,12 @@ const start = () => {
 };
 
 if (cluster.isMaster) {
-  console.log(`Number of Cores is ${totalCores}`);
+  console.log(`Number of Cores available is ${totalAvailableCores}`);
+  console.log(`Number of Cores to use ${concurrencyLevel}`);
   console.log(`Master ${process.pid} is running`);
 
   // Fork workers.
-  for (let i = 0; i < totalCores; i++) {
+  for (let i = 0; i < concurrencyLevel; i++) {
     cluster.fork();
   }
 
