@@ -3,9 +3,6 @@ import { createConnection } from "typeorm";
 import App from "./app";
 import { logger } from "./common/utils";
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 const PORT: any = process.env.PORT || 3000;
 
 const app = new App(PORT);
