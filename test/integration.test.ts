@@ -183,6 +183,7 @@ describe("Test for item foo", () => {
         .expect("Content-Type", /json/)
         .expect(200)
         .then((response) => {
+          // console.log(response.body);
           expect(response.body.quantity).toBe(2);
           expect(response.body.validTill).toBeLessThanOrEqual(t0 + 20000);
 

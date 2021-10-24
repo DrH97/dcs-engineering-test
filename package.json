@@ -5,6 +5,7 @@
    "main": "index.js",
    "scripts": {
       "test": "jest --verbose false --forceExit --detectOpenHandles",
+      "build:test": "tsc && jest --verbose false --forceExit --detectOpenHandles ./dist/test",
       "dev": "nodemon -r dotenv/config src/index.ts 2> error.log",
       "build": "rm -rf dist/ && tsc",
       "lint": "eslint . --ext .ts",

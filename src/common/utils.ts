@@ -5,7 +5,7 @@ const findLotsByName = async (item: string) => {
   return await Lot.findNonExpired(item);
 };
 
-const totalLotsQuantity = async (lots: Lot[]) => {
+const totalLotsQuantity = (lots: Lot[]) => {
   return lots.reduce((acc, val) => acc + val.quantity, 0);
 };
 
@@ -14,13 +14,13 @@ const sortLotsByExpiry = (lots: Lot[]) => {
   lots.sort((a, b) => a.expiry.valueOf() - b.expiry.valueOf());
 };
 //
-const calculateLotsQuantitySum = async (lots: Lot[]) => {
+const calculateLotsQuantitySum = (lots: Lot[]) => {
   // Filter out those that may be expired and not removed yet
   // Might no longer be needed since it is being done in the SQL query
   // lotsByItemName = lotsByItemName.filter((lot) => lot.expiry > new Date());
 
   // Do a summation of lot quantities
-  const sum = await totalLotsQuantity(lots);
+  const sum = totalLotsQuantity(lots);
 
   // Get return object
   sortLotsByExpiry(lots);

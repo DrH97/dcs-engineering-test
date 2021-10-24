@@ -4,6 +4,6 @@ module.exports = {
         '^.+\\.(ts|tsx)?$': 'ts-jest',
         "^.+\\.(js|jsx)$": "babel-jest",
     },
-    modulePathIgnorePatterns: ["<rootDir>/dist/"],
+    // modulePathIgnorePatterns: ["<rootDir>/dist/"],
     testTimeout: 20000
 };
